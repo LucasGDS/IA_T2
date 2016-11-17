@@ -3,7 +3,12 @@
  * MIGUEL BALDEZ BOING - 1312013
  */
 package test;
-import java.util.concurrent.TimeUnit;
+//import java.util.concurrent.TimeUnit;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Timer;
 
 public class Persona //classe do personagem
 {
@@ -74,15 +79,24 @@ public class Persona //classe do personagem
 			
 			;
 		}
-		System.out.println(Panel.getPanel().mapa[posy][posx]);
-		Panel.getPanel().revalidate();
-        Panel.getPanel().repaint(); //NAO PINTA
-        try {
+		//System.out.println(Panel.getPanel().mapa[posy][posx]);
+        
+		//timer
+		Timer timer = new Timer(0, new MyTimerActionListener());
+		timer.start();
+	    try {
+	      Thread.sleep(150);
+	    } catch (InterruptedException e) {
+	    	e.printStackTrace();
+	    }
+	    timer.stop();
+        
+		/*try {
 			TimeUnit.SECONDS.sleep(1); //ESPERA PRA MUDANCAS SEREM VISIVEIS...PRINT VISIVEL,MAS SEM DESENHO
 		} catch (InterruptedException e) {
 			// TODO
 			e.printStackTrace();
-		}
+		}*/
         
 	}
 	
@@ -110,25 +124,32 @@ public class Persona //classe do personagem
 		default:
 			;
 		}
-		System.out.println("GIROU");
-		Panel.getPanel().revalidate();
-        Panel.getPanel().repaint(); //NAO ESTA PINTANDO
-		//Panel.getPanel().paintImmediately(posx, posy, 50, 50);
-	
+		
+		//timer
+		Timer timer = new Timer(0, new MyTimerActionListener());
+		timer.start();
+	    try {
+	      Thread.sleep(90);
+	    } catch (InterruptedException e) {
+	    }
+	    timer.stop();
+		//System.out.println("GIROU");
 	}
 	
 	public void pegar()
 	{
 		pontos = pontos-1;
 		if(Panel.getPanel().mapa[posy][posx]=='O')
-		{pontos = pontos + 100;}
-		else if(Panel.getPanel().mapa[posy][posx]=='U')
-		{energia = energia + 20;}
+		{pontos = pontos + 1000;
+		Panel.changePanel(posy,posx,'.');}
+		else if(Panel.getPanel().mapa[posy][posx]=='U' && energia < 100)
+		{energia = energia + 20;
+		Panel.changePanel(posy,posx,'.');}
 	}
 	
 	//TODO public void atirar()
 	
-	public void reset()
+	public void reset() //resets persona to initial status
 	{
 		pontos=0;
 		energia=100;
@@ -145,8 +166,7 @@ public class Persona //classe do personagem
 			}
 		}
 		seen[11][0]=Panel.getPanel().mapa[11][0];
-		Panel.getPanel().revalidate();
-        Panel.getPanel().repaint();
+		Panel.getPanel().update();
 	}
 	
 	
@@ -162,4 +182,13 @@ public class Persona //classe do personagem
 		}
 		seen[11][0]=Panel.getPanel().mapa[11][0];
 	}
+	
+}
+
+class MyTimerActionListener implements ActionListener { //called every timer sleep
+	  public void actionPerformed(ActionEvent e) {
+		Panel.getPanel().update();
+	    //System.out.println("asdf");
+
+	  }
 }

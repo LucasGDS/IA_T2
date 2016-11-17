@@ -11,13 +11,20 @@ public class Start implements ActionListener //listener pro menu
 {
 	public void actionPerformed(ActionEvent e)
 	{	
+		 Thread queryThread = new Thread() {
+		      public void run() {
+		        comecaConsulta();
+		      }
+		    };
+		    queryThread.start();
 		//Persona.getPersona().reset();
-		comecaConsulta();
+		//comecaConsulta();
 	}
 	
 	public void comecaConsulta()
 	{
+		//Consulta.testeAndar();
 		Consulta.start();
-		//Persona.getPersona().reset(); com o prolog a chamar
+		
 	}
 }

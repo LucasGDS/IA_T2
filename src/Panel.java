@@ -34,7 +34,7 @@ public class Panel extends JPanel {
 	
 	public static final int QTD_IMG = 13;
 	
-	public char mapa[][];
+	public static char mapa[][];
 	
 	private BufferedImage[] imagem;
 	
@@ -49,9 +49,15 @@ public class Panel extends JPanel {
 		return painel;
 	}	
 	
-	public void pinto()
+	public void update()
 	{
-		repaint();
+		this.revalidate();
+        this.repaint();
+		//updateUI();
+	}
+	
+	public static void changePanel(int i, int j, char novo){
+		mapa[i][j] = novo;
 	}
 	
 	//pinta tela

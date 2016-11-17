@@ -5,11 +5,17 @@
 
 package test;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 	public class Main {
 		public static void main(String[] args)
 		{
-			final JFrame f= Window.getWindow();
-			f.setVisible(true);
+			SwingUtilities.invokeLater(new Runnable()
+	        {	
+				public void run(){
+				final JFrame f= Window.getWindow();
+				f.setVisible(true);
+				}
+	        });
 		}
 }
